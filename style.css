@@ -3,22 +3,23 @@
   ;
 }
 body {
-  width: 500px;
+  width: 600px;
   margin: auto;
   padding: 20px;
   background: plum;
+  text-align: center;
 }
 #lists div {
   padding: 10px;
-  margin: 5px 0;
+  width: 11cm; 
 }
 .completed{
   text-decoration: line-through;
 }
 #list-input{
-  width:100% ;
+  width:70% ;
   font-size: 20px;
-  padding: 10px;
+  margin: auto;
 }
 button {
   float: right;

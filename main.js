@@ -1,20 +1,18 @@
-// My lists Basic
+// My list
 
-// HTML Elements
+//html elements
 let iteminputE1 = document.getElementById("list-input");
 let menuE1 = document.getElementById("menu");
 let itemsE1 = document.getElementById("lists");
 
-//GVar
 let lists = loadItem();
 displayall();
-// Go Btn - Menu Listener
 iteminputE1.addEventListener("keydown", listsubmitHandler);
 
 function listsubmitHandler(e) {
   console.log(e.code);
   if (e.code === "Enter") {
-    //Item
+  
     let description = iteminputE1.value;
     lists.push(newitem(description));
     savelists();
@@ -22,44 +20,7 @@ function listsubmitHandler(e) {
     iteminputE1.value = "";
   }
 }
-// MENU FUNCTIONS
-function addItem() {
-  let description = prompt("enter Item description ");
-  lists.push(newitem(description));
-  savelists();
-  displayall();
-  itemsE1.innerHTML = `Item added: ${description}`;
-}
 
-function toggleItem() {
-  let index = +prompt("enter # of Item:");
-  let Item = lists[index];
-  if (Item.completed === "") {
-    Item.completed = "completed";
-  } else {
-    Item.completed = "";
-  }
-  displayall();
-}
-
-function removeItem() {
-  let index = +prompt("enter # of Item");
-  if (index >= 0 && index < lists.length) {
-    lists.splice(index, 1);
-    savelists();
-    displayall();
-  } else {
-    alert("invalid Item");
-  }
-}
-
-function clearAll() {
-  localStorage.clear();
-  lists = [];
-  displayall();
-}
-
-//help functions
 function newitem(Itemdesc) {
   return {
     description: Itemdesc,
