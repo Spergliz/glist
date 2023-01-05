@@ -1,89 +1,89 @@
-// My Tasks Basic
+// My lists Basic
 
 // HTML Elements
-let taskinputE1 = document.getElementById("task-input");
-let menuEl = document.getElementById("menu");
-let tasksEl = document.getElementById("tasks");
+let iteminputE1 = document.getElementById("list-input");
+let menuE1 = document.getElementById("menu");
+let itemsE1 = document.getElementById("lists");
 
 //GVar
-let tasks = loadtask();
+let lists = loadItem();
 displayall();
 // Go Btn - Menu Listener
-taskinputE1.addEventListener("keydown", tasksubmitHandler);
+iteminputE1.addEventListener("keydown", listsubmitHandler);
 
-function tasksubmitHandler(e) {
+function listsubmitHandler(e) {
   console.log(e.code);
   if (e.code === "Enter") {
-    //TASK
-    let description = taskinputE1.value;
-    tasks.push(newtask(description));
-    saveTasks();
+    //Item
+    let description = iteminputE1.value;
+    lists.push(newitem(description));
+    savelists();
     displayall();
-    taskinputE1.value = "";
+    iteminputE1.value = "";
   }
 }
 // MENU FUNCTIONS
-function addTask() {
-  let description = prompt("enter task description ");
-  tasks.push(newtask(description));
-  saveTasks();
+function addItem() {
+  let description = prompt("enter Item description ");
+  lists.push(newitem(description));
+  savelists();
   displayall();
-  tasksEl.innerHTML = `task added: ${description}`;
+  itemsE1.innerHTML = `Item added: ${description}`;
 }
 
-function toggleTask() {
-  let index = +prompt("enter # of task:");
-  let task = tasks[index];
-  if (task.completed === "") {
-    task.completed = "completed";
+function toggleItem() {
+  let index = +prompt("enter # of Item:");
+  let Item = lists[index];
+  if (Item.completed === "") {
+    Item.completed = "completed";
   } else {
-    task.completed = "";
+    Item.completed = "";
   }
   displayall();
 }
 
-function removeTask() {
-  let index = +prompt("enter # of task");
-  if (index >= 0 && index < tasks.length) {
-    tasks.splice(index, 1);
-    saveTasks();
+function removeItem() {
+  let index = +prompt("enter # of Item");
+  if (index >= 0 && index < lists.length) {
+    lists.splice(index, 1);
+    savelists();
     displayall();
   } else {
-    alert("invalid task");
+    alert("invalid Item");
   }
 }
 
 function clearAll() {
   localStorage.clear();
-  tasks = [];
+  lists = [];
   displayall();
 }
 
 //help functions
-function newtask(taskdesc) {
+function newitem(Itemdesc) {
   return {
-    description: taskdesc,
+    description: Itemdesc,
     completed: false,
   };
 }
 function displayall() {
-  tasksEl.innerHTML = "";
-  for (let i = 0; i < tasks.length; i++) {
-    tasksEl.appendChild(gettaskhtml(tasks[i], i));
+  itemsE1.innerHTML = "";
+  for (let i = 0; i < lists.length; i++) {
+    itemsE1.appendChild(getItemhtml(lists[i], i));
   }
 }
-function gettaskhtml(task, index) {
+function getItemhtml(Item, index) {
   let divE1 = document.createElement("div");
 
   let checkboxE1 = document.createElement("input");
   checkboxE1.type = "Checkbox";
   checkboxE1.dataset.index = index;
   checkboxE1.addEventListener("input", checkboxchecker);
-  checkboxE1.checked = task.completed;
+  checkboxE1.checked = Item.completed;
  
   let textspanE1 = document.createElement("span");
-  textspanE1.innerHTML = task.description;
-  if (task.completed) {
+  textspanE1.innerHTML = Item.description;
+  if (Item.completed) {
     textspanE1.className = "completed";
   }
 
@@ -98,19 +98,19 @@ function gettaskhtml(task, index) {
   divE1.appendChild(buttonE1);
   return divE1;
 }
-function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+function savelists() {
+  localStorage.setItem("lists", JSON.stringify(lists));
 }
-function loadtask() {
-  let taskstr = localStorage.getItem("tasks");
-  return JSON.parse(taskstr) ?? [];
+function loadItem() {
+  let liststr = localStorage.getItem("lists");
+  return JSON.parse(liststr) ?? [];
 }
 
 function checkboxchecker(e) {
   let index = +e.target.dataset.index;
-  let task = tasks[index];
-  task.completed = !task.completed;
-  saveTasks();
+  let Item = lists[index];
+  Item.completed = !Item.completed;
+  savelists();
   displayall();
   console.log(e.target);
 }
@@ -118,7 +118,7 @@ function checkboxchecker(e) {
 function removebtnhandler(e) {
   let index = +e.target.dataset.index;
   console.log(e.target);
-  tasks.splice(index, 1);
-  saveTasks();
+  lists.splice(index, 1);
+  savelists();
   displayall();
 }

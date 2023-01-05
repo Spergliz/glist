@@ -6,16 +6,16 @@ body {
   width: 500px;
   margin: auto;
   padding: 20px;
+  background: plum;
 }
-#tasks div {
-  border: 2px solid gray;
+#lists div {
   padding: 10px;
   margin: 5px 0;
 }
 .completed{
   text-decoration: line-through;
 }
-#task-input{
+#list-input{
   width:100% ;
   font-size: 20px;
   padding: 10px;
